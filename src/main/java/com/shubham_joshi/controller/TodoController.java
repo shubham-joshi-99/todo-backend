@@ -26,7 +26,7 @@ public class TodoController {
     @PostMapping
     public ResponseEntity<String> saveTodoItem(@RequestBody Todo request) {
         todoService.saveTodoItem(request);
-        return ResponseEntity.ok("Saved successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Saved successfully");
     }
 
     @PutMapping("/{id}")
