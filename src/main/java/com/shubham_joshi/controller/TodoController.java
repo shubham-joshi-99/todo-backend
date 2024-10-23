@@ -1,32 +1,20 @@
 package com.shubham_joshi.controller;
 
-import com.shubham_joshi.domain.ToDo;
+import com.shubham_joshi.domain.Todo;
 import com.shubham_joshi.entity.TodoEntity;
+import com.shubham_joshi.exception.TodoException;
 import com.shubham_joshi.service.TodoService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.OPTIONS;
-import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-@CrossOrigin(
-        methods = {POST, GET, OPTIONS, DELETE, PATCH},
-        maxAge = 3600,
-        allowedHeaders = {"x-requested-with", "origin", "content-type", "accept"},
-        origins = "*"
-)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/todos")
-public class ToDoController {
+public class TodoController {
 
     private final TodoService todoService;
 
@@ -36,13 +24,13 @@ public class ToDoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveTodoItem(@RequestBody ToDo request) {
+    public ResponseEntity<String> saveTodoItem(@RequestBody Todo request) {
         todoService.saveTodoItem(request);
-        return ResponseEntity.ok("Saved successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Saved successfully");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTodoItem(@PathVariable int id, @RequestBody ToDo todo) {
+    public ResponseEntity<String> updateTodoItem(@PathVariable int id, @RequestBody Todo todo) {
         todoService.updateTodoItem(todo, id);
         return ResponseEntity.ok("Updated successfully");
     }
@@ -51,5 +39,15 @@ public class ToDoController {
     public ResponseEntity<String> deleteTodoItem(@PathVariable int id) {
         todoService.deleteTodoItem(id);
         return ResponseEntity.ok("Deleted successfully");
+    }
+
+    @ExceptionHandler(TodoException.class)
+    public ResponseEntity<String> handleTodoException(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

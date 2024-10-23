@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "todo")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class TodoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
