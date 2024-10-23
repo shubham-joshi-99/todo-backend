@@ -37,7 +37,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 - **Request Body:**
   ```json
   {
-    "title": "Buy groceries",
+    "title": "Buy groceries edit",
     "status": "ACTIVE",
     "order": 1
   }
@@ -78,6 +78,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 ## Database Configuration
 
 I have used H2 Database as the in-memory database for development and testing purposes.
+You can comment the `spring.datasource.url` property in `application.properties` if you don't want to use create the table.
 
 ### H2 Database Configuration
 
@@ -91,6 +92,6 @@ I have used H2 Database as the in-memory database for development and testing pu
 
 To run the application, execute:
 ```sh
-./mvnw spring-boot:run
-
+mvn spring-boot:run
+```
 The application will be available at http://localhost:8080
