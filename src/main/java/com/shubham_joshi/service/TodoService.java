@@ -1,7 +1,8 @@
 package com.shubham_joshi.service;
 
-import com.shubham_joshi.domain.ToDo;
+import com.shubham_joshi.domain.Todo;
 import com.shubham_joshi.entity.TodoEntity;
+import com.shubham_joshi.exception.TodoException;
 import com.shubham_joshi.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,12 @@ import java.util.List;
 public class TodoService {
     private final TodoRepository todoRepository;
 
-    public void saveTodoItem(ToDo toDoItem) {
-        TodoEntity entity = new TodoEntity(null, toDoItem.title(), toDoItem.status(), toDoItem.order());
+    public void saveTodoItem(Todo todoItem) {
+        TodoEntity entity = TodoEntity.builder()
+                .order(todoItem.order())
+                .status(todoItem.status())
+                .title(todoItem.title())
+                .build();
 
         todoRepository.save(entity);
     }
@@ -24,14 +29,16 @@ public class TodoService {
     }
 
     public TodoEntity getTodoItem(long id) {
-        return todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Invalid id"));
+        return todoRepository.findById(id).orElseThrow(() -> new TodoException("Invalid id"));
     }
 
-    public void updateTodoItem(ToDo toDoItem, long id) {
+    public void updateTodoItem(Todo todoItem, long id) {
         TodoEntity entity = getTodoItem(id);
-        entity.setOrder(toDoItem.order());
-        entity.setTitle(toDoItem.title());
-        entity.setStatus(toDoItem.status());
+
+        entity.setOrder(todoItem.order());
+        entity.setTitle(todoItem.title());
+        entity.setStatus(todoItem.status());
+
         todoRepository.saveAndFlush(entity);
     }
 
