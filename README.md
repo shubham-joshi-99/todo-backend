@@ -37,7 +37,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 - **Request Body:**
   ```json
   {
-    "title": "Buy groceries",
+    "title": "Buy groceries edit",
     "status": "ACTIVE",
     "order": 1
   }
