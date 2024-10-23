@@ -1,3 +1,6 @@
+
+© 2024 Shubham Joshi
+
 # Todo API Service
 
 This is a RESTful API for managing todo items. The service allows clients to create, retrieve, update, and delete todo items.
@@ -72,6 +75,17 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 - **Response:**
     - **Status:** `200 OK`
     - **Body:** "Deleted successfully"
+## Database Configuration
+
+I have used H2 Database as the in-memory database for development and testing purposes.
+
+### H2 Database Configuration
+
+- **Console:** Enabled at `/h2-console`
+- **Username:** sa
+- **Password:** password
+- **Table:** `todo`
+
 
 ## Running the Application
 
@@ -79,4 +93,4 @@ To run the application, execute:
 ```sh
 ./mvnw spring-boot:run
 
-The application will be available at http://localhost:8080.
+The application will be available at http://localhost:8080
