@@ -6,7 +6,7 @@
 This is a RESTful API for managing todo items. The service allows clients to create, retrieve, update, and delete todo items.
 
 ## Technologies Used
-- **Java 17**
+- **Java 21**
 - **Spring Boot** for building the REST API
 - **JUnit 5** for testing
 - **Mockito** for mocking dependencies in tests
