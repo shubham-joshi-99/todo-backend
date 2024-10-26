@@ -41,26 +41,18 @@ class TodoControllerTest {
 
     @Test
     void saveTodoItem_shouldReturnSuccessMessage() {
-        Todo todoRequest = Todo.builder()
-                .title("item 1")
-                .status(ItemStatus.ACTIVE)
-                .order(1)
-                .build();
+        Todo todoRequest = new Todo("item 1", ItemStatus.ACTIVE);
 
         ResponseEntity<String> response = todoController.saveTodoItem(todoRequest);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals("Saved successfully", response.getBody());
         Mockito.verify(todoService, Mockito.times(1)).saveTodoItem(todoRequest);
     }
 
     @Test
     void updateTodoItem_shouldReturnSuccessMessage() {
-        Todo todoRequest = Todo.builder()
-                .title("item 1 update")
-                .status(ItemStatus.COMPLETED)
-                .order(1)
-                .build();
+        Todo todoRequest = new Todo("item 1 update", ItemStatus.COMPLETED);
         int todoId = 1;
 
         ResponseEntity<String> response = todoController.updateTodoItem(todoId, todoRequest);

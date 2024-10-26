@@ -8,9 +8,9 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 ## Technologies Used
 - **Java 17**
 - **Spring Boot** for building the REST API
-- **JUnit 5** for testing
+- **JUnit 4** for testing
 - **Mockito** for mocking dependencies in tests
-
+****
 ## API Endpoints
 
 ### 1. Get Todo List
@@ -39,8 +39,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
   ```json
   {
     "title": "Buy groceries edit",
-    "status": "ACTIVE",
-    "order": 1
+    "status": "ACTIVE"
   }
 - **Response:**
   - **Status:** `200 OK`
@@ -55,8 +54,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
   ```json
   {
     "title": "Buy groceries",
-    "status": "COMPLETED",
-    "order": 1
+    "status": "COMPLETED"
   }
 - **Response:**
     - **Status:** `200 OK`
@@ -66,16 +64,14 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 - **Endpoint:** `DELETE /todos/{id}`
 - **Description:**  Delete a todo item by its ID.
 - **Path Parameter:** `id (int): The ID of the todo item to delete.`
-- **Request Body:**
-  ```json
-  {
-    "title": "Buy groceries",
-    "status": "ACTIVE",
-    "order": 1
-  }
 - **Response:**
     - **Status:** `200 OK`
     - **Body:** "Deleted successfully"
+
+**If the user want to reorder the items we can get the list of todo items and set the order accordingly**
+
+****
+
 ## Database Configuration
 
 I have used H2 Database as the in-memory database for development and testing purposes.

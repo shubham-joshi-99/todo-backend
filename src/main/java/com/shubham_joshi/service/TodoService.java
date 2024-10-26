@@ -15,8 +15,13 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     public void saveTodoItem(Todo todoItem) {
+        Integer maxOrder = todoRepository.findAllByOrderByOrderAsc().stream()
+                .map(TodoEntity::getOrder)
+                .max(Integer::compareTo)
+                .orElse(0);
+
         TodoEntity entity = TodoEntity.builder()
-                .order(todoItem.order())
+                .order(maxOrder + 1)
                 .status(todoItem.status())
                 .title(todoItem.title())
                 .build();
@@ -35,7 +40,6 @@ public class TodoService {
     public void updateTodoItem(Todo todoItem, long id) {
         TodoEntity entity = getTodoItem(id);
 
-        entity.setOrder(todoItem.order());
         entity.setTitle(todoItem.title());
         entity.setStatus(todoItem.status());
 
@@ -45,5 +49,12 @@ public class TodoService {
     public void deleteTodoItem(long id) {
         TodoEntity todoEntity = getTodoItem(id);
         todoRepository.delete(todoEntity);
+
+        List<TodoEntity> todos = todoRepository.findAllByOrderByOrderAsc();
+        for (int i = 0; i < todos.size(); i++) {
+            todos.get(i).setOrder(i + 1);  // Re-adjust order
+        }
+
+        todoRepository.saveAll(todos);
     }
 }
