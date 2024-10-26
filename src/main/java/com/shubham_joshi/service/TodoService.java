@@ -15,13 +15,10 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     public void saveTodoItem(Todo todoItem) {
-        Integer maxOrder = todoRepository.findAllByOrderByOrderAsc().stream()
-                .map(TodoEntity::getOrder)
-                .max(Integer::compareTo)
-                .orElse(0);
+        int order = getTodoList().size() + 1;
 
         TodoEntity entity = TodoEntity.builder()
-                .order(maxOrder + 1)
+                .order(order)
                 .status(todoItem.status())
                 .title(todoItem.title())
                 .build();

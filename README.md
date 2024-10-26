@@ -42,7 +42,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
     "status": "ACTIVE"
   }
 - **Response:**
-  - **Status:** `200 OK`
+  - **Status:** `201 Created`
   - **Body:** "Saved successfully"
 
 ### 3. Update Todo Item
@@ -68,14 +68,12 @@ This is a RESTful API for managing todo items. The service allows clients to cre
     - **Status:** `200 OK`
     - **Body:** "Deleted successfully"
 
-**If the user want to reorder the items we can get the list of todo items and set the order accordingly**
 
 ****
 
 ## Database Configuration
 
 I have used H2 Database as the in-memory database for development and testing purposes.
-You can comment the `spring.datasource.url` property in `application.properties` if you don't want to use create the table.
 
 ### H2 Database Configuration
 
@@ -92,3 +90,12 @@ To run the application, execute:
 mvn spring-boot:run
 ```
 The application will be available at http://localhost:8080
+
+****
+
+## Possible features that can be added 
+
+- **Security**
+- **Integrating with SPA apps**
+- **Reordering**
+- **Grouping of items**
