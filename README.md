@@ -49,7 +49,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 
 - **Endpoint:** `PUT /todos/{id}`
 - **Description:**  Update an existing todo item by its ID.
-- **Path Parameter:** `id (int): The ID of the todo item to update.`
+- **Path Parameter:** `id (long): The ID of the todo item to update.`
 - **Request Body:**
   ```json
   {
@@ -63,7 +63,7 @@ This is a RESTful API for managing todo items. The service allows clients to cre
 
 - **Endpoint:** `DELETE /todos/{id}`
 - **Description:**  Delete a todo item by its ID.
-- **Path Parameter:** `id (int): The ID of the todo item to delete.`
+- **Path Parameter:** `id (long): The ID of the todo item to delete.`
 - **Response:**
     - **Status:** `200 OK`
     - **Body:** "Deleted successfully"
