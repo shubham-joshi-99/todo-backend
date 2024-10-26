@@ -30,11 +30,7 @@ class TodoServiceTest {
 
     @Test
     void shouldSaveTodoEntity() {
-        Todo todoItem = Todo.builder()
-                .title("item 1")
-                .status(ItemStatus.ACTIVE)
-                .order(1)
-                .build();
+        Todo todoItem = new Todo("item 1", ItemStatus.ACTIVE);
 
         todoService.saveTodoItem(todoItem);
 
@@ -75,18 +71,13 @@ class TodoServiceTest {
 
     @Test
     void shouldUpdateTodoEntity() {
-        Todo todoItem = Todo.builder()
-                .title("item 1 update")
-                .status(ItemStatus.COMPLETED)
-                .order(1)
-                .build();
+        Todo todoItem = new Todo("item 1 update", ItemStatus.COMPLETED);
 
         TodoEntity todoEntity = new TodoEntity();
         Mockito.when(todoRepository.findById(1L)).thenReturn(Optional.of(todoEntity));
 
         todoService.updateTodoItem(todoItem, 1L);
 
-        Assertions.assertEquals(1, todoEntity.getOrder());
         Assertions.assertEquals("item 1 update", todoEntity.getTitle());
         Assertions.assertEquals(ItemStatus.COMPLETED, todoEntity.getStatus());
         Mockito.verify(todoRepository, Mockito.times(1)).saveAndFlush(todoEntity);
